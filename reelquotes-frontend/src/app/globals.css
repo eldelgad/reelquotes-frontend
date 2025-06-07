@@ -1,26 +1,99 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Light theme (creamy beige aesthetic) */
+  --background: #fefbf6;
+  --foreground: #2c2c2c;
+  --primary: #8b4513;
+  --primary-foreground: #fefbf6;
+  --secondary: #f4f1e8;
+  --secondary-foreground: #2c2c2c;
+  --accent: #d2b48c;
+  --accent-foreground: #2c2c2c;
+  --muted: #f9f6f1;
+  --muted-foreground: #666666;
+  --border: #e6ddd4;
+  --input: #ffffff;
+  --ring: #8b4513;
+  
+  /* Font variables */
+  --font-montserrat: var(--font-montserrat);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --font-sans: 'Montserrat', system-ui, sans-serif;
 }
 
+/* Dark theme (warm, film-strip inspired with sepia/brown tones) */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #1a1611;
+    --foreground: #f5f0e8;
+    --primary: #d4af37;
+    --primary-foreground: #1a1611;
+    --secondary: #2d251f;
+    --secondary-foreground: #f5f0e8;
+    --accent: #cd853f;
+    --accent-foreground: #1a1611;
+    --muted: #242018;
+    --muted-foreground: #a0958a;
+    --border: #3d342a;
+    --input: #2d251f;
+    --ring: #d4af37;
   }
+}
+
+.dark {
+  --background: #1a1611;
+  --foreground: #f5f0e8;
+  --primary: #d4af37;
+  --primary-foreground: #1a1611;
+  --secondary: #2d251f;
+  --secondary-foreground: #f5f0e8;
+  --accent: #cd853f;
+  --accent-foreground: #1a1611;
+  --muted: #242018;
+  --muted-foreground: #a0958a;
+  --border: #3d342a;
+  --input: #2d251f;
+  --ring: #d4af37;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+/* Custom scrollbar for dark theme aesthetics */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+} 
