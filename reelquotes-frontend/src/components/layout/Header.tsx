@@ -6,9 +6,39 @@ import { Menu, Sun, Moon } from "lucide-react";
 export default function Header() {
   const [isDark, setIsDark] = React.useState(false);
 
+  // Initialize theme based on localStorage or system preference
+  React.useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    let shouldBeDark = false;
+    
+    if (savedTheme) {
+      shouldBeDark = savedTheme === 'dark';
+    } else {
+      shouldBeDark = systemPrefersDark;
+    }
+    
+    setIsDark(shouldBeDark);
+    
+    if (shouldBeDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, []);
+
   const toggleTheme = () => {
-    setIsDark(!isDark);
-    document.documentElement.classList.toggle("dark");
+    const newTheme = !isDark;
+    setIsDark(newTheme);
+    
+    if (newTheme) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
   };
 
   return (
