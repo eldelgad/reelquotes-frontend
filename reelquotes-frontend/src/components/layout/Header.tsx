@@ -14,30 +14,24 @@ export default function Header() {
     const savedTheme = localStorage.getItem('theme');
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
+    // Determine initial theme: saved preference > system preference > light default
     let shouldBeDark = false;
-    
     if (savedTheme) {
       shouldBeDark = savedTheme === 'dark';
     } else {
       shouldBeDark = systemPrefersDark;
     }
     
-    // Check if dark class is already present (from CSS media query)
-    const currentlyDark = document.documentElement.classList.contains('dark') || 
-                          (savedTheme === null && systemPrefersDark);
-    
-    shouldBeDark = savedTheme ? savedTheme === 'dark' : currentlyDark;
-    
     setIsDark(shouldBeDark);
     
-    // Apply the theme
+    // Apply the theme to DOM
     if (shouldBeDark) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
     
-    console.log('Theme initialized:', { shouldBeDark, savedTheme, systemPrefersDark, currentlyDark });
+    console.log('Theme initialized:', { shouldBeDark, savedTheme, systemPrefersDark });
   }, []);
 
   const toggleTheme = () => {

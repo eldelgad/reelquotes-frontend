@@ -39,23 +39,7 @@
 }
 
 /* Dark theme (warm, film-strip inspired with sepia/brown tones) */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #1a1611;
-    --foreground: #f5f0e8;
-    --primary: #d4af37;
-    --primary-foreground: #1a1611;
-    --secondary: #2d251f;
-    --secondary-foreground: #f5f0e8;
-    --accent: #cd853f;
-    --accent-foreground: #1a1611;
-    --muted: #242018;
-    --muted-foreground: #a0958a;
-    --border: #3d342a;
-    --input: #2d251f;
-    --ring: #d4af37;
-  }
-}
+/* Removed @media query to let JavaScript handle theme toggle exclusively */
 
 .dark {
   --background: #1a1611;
