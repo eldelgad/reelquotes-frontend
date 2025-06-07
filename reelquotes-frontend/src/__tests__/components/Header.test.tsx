@@ -34,6 +34,12 @@ describe('Header', () => {
     localStorageMock.getItem.mockClear();
     localStorageMock.setItem.mockClear();
     document.documentElement.classList.remove('dark');
+    // Mock console.log to prevent test output noise
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+  });
+  
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
   it('renders the ReelQuotes logo', () => {
     render(<Header />);

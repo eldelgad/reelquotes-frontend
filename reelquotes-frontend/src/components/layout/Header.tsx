@@ -5,9 +5,12 @@ import { Menu, Sun, Moon } from "lucide-react";
 
 export default function Header() {
   const [isDark, setIsDark] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
 
   // Initialize theme based on localStorage or system preference
   React.useEffect(() => {
+    setMounted(true);
+    
     const savedTheme = localStorage.getItem('theme');
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
@@ -19,13 +22,22 @@ export default function Header() {
       shouldBeDark = systemPrefersDark;
     }
     
+    // Check if dark class is already present (from CSS media query)
+    const currentlyDark = document.documentElement.classList.contains('dark') || 
+                          (savedTheme === null && systemPrefersDark);
+    
+    shouldBeDark = savedTheme ? savedTheme === 'dark' : currentlyDark;
+    
     setIsDark(shouldBeDark);
     
+    // Apply the theme
     if (shouldBeDark) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
+    
+    console.log('Theme initialized:', { shouldBeDark, savedTheme, systemPrefersDark, currentlyDark });
   }, []);
 
   const toggleTheme = () => {
@@ -39,6 +51,8 @@ export default function Header() {
       document.documentElement.classList.remove('dark');
       localStorage.setItem('theme', 'light');
     }
+    
+    console.log('Theme toggled:', { newTheme, localStorage: localStorage.getItem('theme') });
   };
 
   return (
@@ -81,7 +95,10 @@ export default function Header() {
             className="p-2 hover:bg-secondary rounded-md transition-colors"
             aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
           >
-            {isDark ? (
+            {!mounted ? (
+              // Show moon by default until mounted to prevent hydration mismatch
+              <Moon className="h-5 w-5 text-foreground" />
+            ) : isDark ? (
               <Sun className="h-5 w-5 text-foreground" />
             ) : (
               <Moon className="h-5 w-5 text-foreground" />
